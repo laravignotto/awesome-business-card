@@ -1,0 +1,105 @@
+% !TEX TS-program = xelatex
+%
+% Downloaded from:
+% https://github.com/laravignotto/awesome-business-card
+%
+% Author:
+% Lara Vignotto <lara.vignotto@gmail.com>
+% 
+% Inspired by:
+% https://github.com/opieters/business-card
+% https://github.com/posquit0/Awesome-CV
+%
+\documentclass[10pt,oneside,final]{article}
+
+% business card size (international)
+\usepackage[paperwidth=55mm,paperheight=85mm,margin=0cm,noheadfoot]{geometry}
+% business card size (North America)
+% \usepackage[paperwidth=2in,paperheight=3.5in,margin=0cm,noheadfoot]{geometry}
+\setlength{\baselineskip}{0cm}
+\setlength{\topskip}{0pt} 
+
+\usepackage{parskip} 
+\usepackage{fontspec} 
+\usepackage{tikz} 
+\usepackage{fontawesome} 
+\RequirePackage[default,opentype]{sourcesanspro}
+\usepackage{xcolor} 
+
+\newfontfamily\namefont[
+    Path=fonts/,
+    UprightFont=*-Thin,
+    ItalicFont=*-ThinItalic,
+    BoldFont=*-Medium,
+    BoldItalicFont=*-MediumItalic,
+]{Roboto}
+
+\newfontfamily\surnamefont[
+    Path=fonts/,
+    UprightFont=*-Regular,
+    ItalicFont=*-Italic,
+    BoldFont=*-Bold,
+    BoldItalicFont=*-BoldItalic,
+]{Roboto}
+
+\usetikzlibrary{matrix,calc,positioning}
+
+% separation lines dimensions and spacing
+\newlength{\seplinewidth}    \setlength{\seplinewidth}{2cm}
+\newlength{\seplineheight}   \setlength{\seplineheight}{1pt}
+\newlength{\seplinedistance} \setlength{\seplinedistance}{0.1cm}
+
+% color options
+\definecolor{seplinecolour}{HTML}{FB4485}  % separation lines
+\definecolor{iconcolour}{HTML}{2F3142}     % icons
+\definecolor{textcolour}{HTML}{2F3142}     % text
+\definecolor{jobtitlecolour}{HTML}{FB4485} % job title
+
+% change global color
+\makeatletter
+\newcommand{\globalcolor}[1]{%
+  \color{#1}\global\let\default@color\current@color
+}
+\makeatother
+\AtBeginDocument{\globalcolor{textcolour}}
+
+\begin{document}
+    \thispagestyle{empty}
+    \vspace*{\fill}
+    \begin{center}
+        \begin{tikzpicture}
+        % name, surname, job title
+        \matrix[every node/.style={anchor=center,font=\huge},anchor=center] (name) {
+            \node{\namefont Name}; \\
+            \node{\surnamefont\bfseries Surname}; \\
+            \node{\color{jobtitlecolour}
+                \footnotesize
+                \sourcesanspro\scshape
+                Job Title}; \\
+        };
+        % sep line 1
+        \node[below=\seplinedistance of name] (hl1) {};
+        \draw[line width=\seplineheight,color=seplinecolour] (hl1)++(-\seplinewidth/2,0) -- ++(\seplinewidth,0);
+        % contact info
+        \matrix [below=\seplinedistance of hl1,%
+                column 1/.style={anchor=center,color=iconcolour},%
+                column 2/.style={anchor=west}] (contact){
+            % comment, uncomment or add nodes with info if needed
+            % adjust figure width below if needed when adding/removing lines here
+            \node{\faGlobe}; & \node{\small example.com};\\
+            \node{\faEnvelope}; &\node{\small example@example.com};\\
+            \node{\faMobile}; &\node{\small +1 555 0000}; \\
+            \node{\faGithubSquare}; &\node{\small example}; \\
+            % \node{\faLinkedinSquare}; &\node{\small example}; \\
+        };
+        % sep line 2
+        \node[below=\seplinedistance of contact] (hl2) {};
+        \draw[line width=\seplineheight,color=seplinecolour] (hl2)++(-\seplinewidth/2,0) -- ++(\seplinewidth,0);
+        % image
+            \node [below=\seplinedistance of hl2]
+            % adjust width if needed
+            {\includegraphics[width=.4\textwidth]{figures/qr-code.png}};
+        \end{tikzpicture}
+    \end{center}
+    \vspace*{\fill}
+\end{document}
