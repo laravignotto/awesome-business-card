@@ -4,7 +4,7 @@
 
 ---
 
-![business card example](https://github.com/laravignotto/awesome-business-card/blob/master/figures/business_card.png?raw=true)
+<kbd>![business card example](https://github.com/laravignotto/awesome-business-card/blob/main/figures/business_card.png?raw=true)</kbd>
 
 ---
 
